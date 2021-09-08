@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Note Class</title>
+    <link rel="shortcut icon" href="#">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container py-5">
+    <form>
+        <h4>Редактировать заметку</h4>
+        <div class="error">
+            <!-- ВВЫВОД ОШИБОК -->
+        </div>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Заголовок">
+        </div>
+        <div class="form-group mt-4">
+            <label for="textarea">Body</label>
+            <textarea class="form-control" rows="3" id="textarea" placeholder="Содержание"></textarea>
+        </div>
+        <div class="form-group my-3">
+            <button class="btn btn-primary">Сохранить</button>
+        </div>
+    </form>
+    <br>
+    <div class="my-3 notes-list">
+        <!-- ВВЫВОД СПИСКА ЗАМЕТОК -->
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+
+<script src="form.js"></script>
+<script src="notes.js"></script>
+<script>
+
+</script>
+</body>
+</html>
