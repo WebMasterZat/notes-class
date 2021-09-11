@@ -138,21 +138,20 @@ class NotesClass {
             labelNotesList.setAttribute('for', 'labelNotesList' + index)
 
 
-
             // 1. по клику на кнопку редактировать перейти на страницу edit
 
             // 2. get (параметр search об-та location) параметром передать id заметки в формате id = номер id (сам id)
 
             // 3. в самом файле edit.html в JS прописать получение get параметра id из строки браузера (он же получается из свойства search объекта location)
-            // т.е. если сторока вида http://test.localhost/edit.html?id=123
+            // т.е. если строка вида http://test.localhost/edit.html?id=123
             // то надо создать об-т query в формате { id: 123 }
-            // импользовать метод split или метод match ( c регулярным выражением )
+            // использовать метод split или метод match ( c регулярным выражением )
 
             // 4. Создать экземпляр класса заметок и по полученному из строки id получить текущую заметку из localstorage по её id (getById())
-            
+
             // 5. поле заголовок найденной заметки поставить в value input формы редактирования, поле содержание в textarea. Т.е. вставить данные
             // заметки в ДОМ
-            
+
             // ЕСЛИ СМОЖЕШЬ
             // 6. Отредактировать выбранную заметку и вернуться на страницу index.html, где заметка будет оборажаться в отредактирвоанном виде
 
@@ -162,12 +161,12 @@ class NotesClass {
             button.classList.add('btn')
             button.classList.add('btn-success')
             button.addEventListener('click', () => {
-                // location.href = 'http://test.localhost/edit.html'
                 console.log(location)
 
                 // const origin = location.origin
-                const { origin } = location
+                const {origin} = location
                 // location.href = `${origin}/edit.html`
+                location.href = 'http://test.localhost/edit.html' + '?id=' + item.id
 
             })
 

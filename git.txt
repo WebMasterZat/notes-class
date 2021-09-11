@@ -10,3 +10,13 @@ git commit -m "first commit"
 
 # отправка файлов на удалённый репозиторий
 git push -u origin main
+
+
+--------------
+проверка удалённой привязки
+git remote -v
+
+
+
+проверка истории коммитов
+git log --oneline
