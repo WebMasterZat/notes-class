@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,20 +22,16 @@
         </div>
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Заголовок">
+            <input type="text" class="form-control" id="titleEdit" placeholder="Заголовок">
         </div>
         <div class="form-group mt-4">
             <label for="textarea">Body</label>
-            <textarea class="form-control" rows="3" id="textarea" placeholder="Содержание"></textarea>
+            <textarea class="form-control" rows="3" id="textareaEdit" placeholder="Содержание"></textarea>
         </div>
         <div class="form-group my-3">
-            <button class="btn btn-primary">Сохранить</button>
+            <button class="btn btn-primary saveEdit">Сохранить</button>
         </div>
     </form>
-    <br>
-    <div class="my-3 notes-list">
-        <!-- ВВЫВОД СПИСКА ЗАМЕТОК -->
-    </div>
 </div>
 
 
@@ -46,13 +43,51 @@
 
     //?id=8063bc18-308c-4f4c-aa2a-799ad762a503
 
+    let notesEdit = new NotesClass()
+   // let formClassEdit = new FormClass()
     let search = location.search.match(/(?<=\?id=)\S+/)
-
     let query = {
-        id: search
+        id: search[0].trim()
     }
-    console.log(query.id)
+
+    document.getElementById('titleEdit').value = notesEdit.getById(query.id).title
+    document.getElementById('textareaEdit').value = notesEdit.getById(query.id).body
+
+    document.querySelector('.saveEdit').addEventListener('click', (e) => {
+        e.preventDefault()
+        let titleEditValue = document.getElementById('titleEdit').value
+        let textareaEditValue = document.getElementById('textareaEdit').value
+        notesEdit.notes.forEach(item => {
+            if (item.id === query.id) {
+                item.title = titleEditValue
+                item.body = textareaEditValue
+                notesEdit.save(notesEdit.notes)
+               // location.href = 'http://test.localhost/index.html'
+            }
+        })
+    })
+
+
+    function valueCheck() {
+        if (titleEditValue.value) {
+
+        }
+    }
+
 
 </script>
 </body>
 </html>
+
+<!--// 1. по клику на кнопку редактировать перейти на страницу edit-->
+<!--// 2. get (параметр search об-та location) параметром передать id заметки в формате id = номер id (сам id)-->
+<!--// 3. в самом файле edit.html в JS прописать получение get параметра id из строки браузера (он же получается из свойства search объекта location)-->
+<!--// т.е. если строка вида http://test.localhost/edit.html?id=123-->
+<!--// то надо создать об-т query в формате { id: 123 }-->
+<!--// использовать метод split или метод match ( c регулярным выражением )-->
+<!--// 4. Создать экземпляр класса заметок и по полученному из строки id получить текущую заметку из localstorage по её id (getById())-->
+<!--// 5. поле заголовок найденной заметки поставить в value input формы редактирования, поле содержание в textarea. Т.е. вставить данные-->
+<!--// заметки в ДОМ-->
+
+<!--// ЕСЛИ СМОЖЕШЬ-->
+<!--// 6. Отредактировать выбранную заметку и вернуться на страницу index.html, где заметка будет отображаться в отредактированном виде-->

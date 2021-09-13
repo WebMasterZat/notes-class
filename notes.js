@@ -4,7 +4,8 @@ class NotesClass {
         console.log('this.form: ', this.form)
     }
 
-    add(note) {
+
+    add(note){
 
         // ВАЛИДАЦИЯ
         //if (!this.validation(note)) return
@@ -71,7 +72,7 @@ class NotesClass {
         // получить из хранилища ...
     }
 
-    // получаем id заметки
+    // получаем заметку по её id
     getById(id) {
         // возврат заметки по id
         return this.notes.find(el => el.id === id)
@@ -117,7 +118,8 @@ class NotesClass {
     // аргументы: -
 
     print() {
-        console.log('print: ', this.notes)
+       // this.render()
+        return this.notes
     }
 
     // ВЫВОД И ПЕРЕРИСОВКА СПИСКА ЗАМЕТОК
@@ -139,9 +141,7 @@ class NotesClass {
 
 
             // 1. по клику на кнопку редактировать перейти на страницу edit
-
             // 2. get (параметр search об-та location) параметром передать id заметки в формате id = номер id (сам id)
-
             // 3. в самом файле edit.html в JS прописать получение get параметра id из строки браузера (он же получается из свойства search объекта location)
             // т.е. если строка вида http://test.localhost/edit.html?id=123
             // то надо создать об-т query в формате { id: 123 }
@@ -153,7 +153,7 @@ class NotesClass {
             // заметки в ДОМ
 
             // ЕСЛИ СМОЖЕШЬ
-            // 6. Отредактировать выбранную заметку и вернуться на страницу index.html, где заметка будет оборажаться в отредактирвоанном виде
+            // 6. Отредактировать выбранную заметку и вернуться на страницу index.html, где заметка будет отображаться в отредактированном виде
 
 
             let button = document.createElement('button')
@@ -161,8 +161,6 @@ class NotesClass {
             button.classList.add('btn')
             button.classList.add('btn-success')
             button.addEventListener('click', () => {
-                console.log(location)
-
                 // const origin = location.origin
                 const {origin} = location
                 // location.href = `${origin}/edit.html`
@@ -181,13 +179,12 @@ class NotesClass {
             li.appendChild(inputNotesList)
             li.appendChild(labelNotesList)
             li.appendChild(button)
-
+            
             inputNotesList.addEventListener('change', (e) => {
                 item.completed = e.target.checked
                 this.save(notes)
                 this.render()
             })
-
         })
     }
 }
