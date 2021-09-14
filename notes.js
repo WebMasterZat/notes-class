@@ -54,7 +54,7 @@ class NotesClass {
 
         this.validation(note)
 
-        const notes = this.notes()
+        const notes = this.notes
         notes.forEach(item => {
             if (item.id === id) {
                 item.title = note.title

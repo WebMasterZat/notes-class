@@ -44,27 +44,22 @@
     //?id=8063bc18-308c-4f4c-aa2a-799ad762a503
 
     let notesEdit = new NotesClass()
-   // let formClassEdit = new FormClass()
-    let search = location.search.match(/(?<=\?id=)\S+/)
-    let query = {
-        id: search[0].trim()
-    }
+    // let formClassEdit = new FormClass()
+    let query = location.search.match(/(?<=\?id=)\S+/)
+    let id = query[0].trim()
 
-    document.getElementById('titleEdit').value = notesEdit.getById(query.id).title
-    document.getElementById('textareaEdit').value = notesEdit.getById(query.id).body
+    document.getElementById('titleEdit').value = notesEdit.getById(id).title
+    document.getElementById('textareaEdit').value = notesEdit.getById(id).body
 
     document.querySelector('.saveEdit').addEventListener('click', (e) => {
         e.preventDefault()
-        let titleEditValue = document.getElementById('titleEdit').value
-        let textareaEditValue = document.getElementById('textareaEdit').value
-        notesEdit.notes.forEach(item => {
-            if (item.id === query.id) {
-                item.title = titleEditValue
-                item.body = textareaEditValue
-                notesEdit.save(notesEdit.notes)
-               // location.href = 'http://test.localhost/index.html'
-            }
+        let title = document.getElementById('titleEdit').value
+        let body = document.getElementById('textareaEdit').value
+        notesEdit.update(id, {
+            title,
+            body
         })
+       location.href = 'http://test.localhost/index.html'
     })
 
 
