@@ -41,7 +41,7 @@ class NotesClass {
 
     // удалить заметку по id
     remove(id) {
-        const notes = this.notes()
+        const notes = this.notes
         const index = notes.findIndex(note => note.id === id)
         if (index !== -1) {
             notes.splice(index, 1)
@@ -128,7 +128,6 @@ class NotesClass {
         let notesList = document.querySelector('.notes-list')
         const notes = this.notes
 
-
         let ul = document.createElement('ul')
 
         notesList.innerText = ''
@@ -146,14 +145,27 @@ class NotesClass {
             // т.е. если строка вида http://test.localhost/edit.html?id=123
             // то надо создать об-т query в формате { id: 123 }
             // использовать метод split или метод match ( c регулярным выражением )
-
             // 4. Создать экземпляр класса заметок и по полученному из строки id получить текущую заметку из localstorage по её id (getById())
-
             // 5. поле заголовок найденной заметки поставить в value input формы редактирования, поле содержание в textarea. Т.е. вставить данные
             // заметки в ДОМ
-
             // ЕСЛИ СМОЖЕШЬ
             // 6. Отредактировать выбранную заметку и вернуться на страницу index.html, где заметка будет отображаться в отредактированном виде
+
+
+            // 7. удалить заметку
+
+            let buttonDelete = document.createElement('button')
+            buttonDelete.innerText = 'Удалить'
+            buttonDelete.classList.add('btn')
+            buttonDelete.classList.add('btn-danger')
+            buttonDelete.classList.add('m-1')
+            buttonDelete.addEventListener('click', (e) => {
+                // как программа сопоставляет id элемента и элемент на который нажал ??
+                this.remove(item.id)
+                this.render()
+                // this.remove(this.getById(item.id)) ??? почему не работает???
+                // this.render() ???
+            })
 
 
             let button = document.createElement('button')
@@ -179,6 +191,7 @@ class NotesClass {
             li.appendChild(inputNotesList)
             li.appendChild(labelNotesList)
             li.appendChild(button)
+            li.appendChild(buttonDelete)
             
             inputNotesList.addEventListener('change', (e) => {
                 item.completed = e.target.checked
