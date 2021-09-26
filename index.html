@@ -39,12 +39,17 @@
     </div>
 
 
-
-
+    <!-- Плагины и библиотеки -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="form.js"></script>
-    <script src="notes.js"></script>
+
+    <!--Константы-->
+    <script src="constants/date.const.js"></script>
+
+    <!--Модули (классы)-->
+    <script src="classes/form.js"></script>
+    <script src="classes/notes.js"></script>
+    <script src="classes/date.js"></script>
     <script>
         let notesClass1 = new NotesClass() // экземпляр объекта
 
@@ -60,13 +65,6 @@
             notesClass1.add(note)
         })
         notesClass1.render()
-
-
-        // создай экземпляр класса вне обработчика событий
-
-        // и отдельно вызови метод вывода заметок
-
-        // там же в html рядом с обработчиком submit
 
 
         /*

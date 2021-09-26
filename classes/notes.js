@@ -15,8 +15,8 @@ class NotesClass {
         const newNote = {
             id: uuid.v4(),
             completed: false,
-            createdAt: moment().format('DD/MM/YYYY, HH:mm:ss'),
-            updatedAt: '-' || moment().format('DD/MM/YYYY, HH:mm:ss'),
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
             ...note
             // title: note.title,
             // body: note.body,
@@ -28,6 +28,7 @@ class NotesClass {
         console.log('Заметка добавлена')
         this.form.reset()
     }
+
 
     // сохранить заметку в localstorage
     save(notes) {
@@ -59,9 +60,8 @@ class NotesClass {
             if (item.id === id) {
                 item.title = note.title
                 item.body = note.body
-                item.updatedAt = moment().format('DD/MM/YYYY, HH:mm:ss')
+                item.updatedAt = Date.now()
             }
-            console.log(item.createdAt)
         })
         this.save(notes)
         console.log(`Заметка c id = ${id} обновлена`)
@@ -132,25 +132,6 @@ class NotesClass {
         let ul = document.createElement('ul')
 
         notesList.innerText = ''
-        // 1. по клику на кнопку редактировать перейти на страницу edit
-        // 2. get (параметр search об-та location) параметром передать id заметки в формате id = номер id (сам id)
-        // 3. в самом файле edit.html в JS прописать получение get параметра id из строки браузера (он же получается из свойства search объекта location)
-        // т.е. если строка вида http://test.localhost/edit.html?id=123
-        // то надо создать об-т query в формате { id: 123 }
-        // использовать метод split или метод match ( c регулярным выражением )
-        // 4. Создать экземпляр класса заметок и по полученному из строки id получить текущую заметку из localstorage по её id (getById())
-        // 5. поле заголовок найденной заметки поставить в value input формы редактирования, поле содержание в textarea. Т.е. вставить данные
-        // заметки в ДОМ
-        // ЕСЛИ СМОЖЕШЬ
-        // 6. Отредактировать выбранную заметку и вернуться на страницу index.html, где заметка будет отображаться в отредактированном виде
-        // 7. удалить заметку
-
-
-        // 19.09.2021
-        // https://tutorial.webexp.site
-        // вывод дат создания и редактирования заметки в отформатированном виде с помощью библиотеки moment.js
-        // https://momentjs.com/docs/#/displaying/format/
-
         notes.forEach((item, index) => {
 
             // Удалить
@@ -211,7 +192,11 @@ class NotesClass {
             btnDateOfCreate.type = 'button'
             btnDateOfCreate.classList.add('btn')
             btnDateOfCreate.classList.add('btn-outline-secondary')
-            btnDateOfCreate.innerText = 'Дата создания: ' + item.createdAt
+
+
+            btnDateOfCreate.innerText = 'Дата создания: ' + DateClass.formatData(item.createdAt, FULL_DATE)
+
+
 
             let btnDateOfEdit = document.createElement('button')
             btnDateOfEdit.type = 'button'
@@ -220,7 +205,7 @@ class NotesClass {
             btnDateOfEdit.classList.add('btn-outline-secondary')
 
 
-            btnDateOfEdit.innerText = 'Дата редактирования: ' + item.updatedAt
+           btnDateOfEdit.innerText = 'Дата редактирования: ' + DateClass.formatData(item.updatedAt, FULL_DATE) // baged bootstrap
 
             ul.appendChild(li)
             li.appendChild(h5)
@@ -240,3 +225,13 @@ class NotesClass {
         })
     }
 }
+
+
+/*
+1. Поменять н=кнопки на бейджи вывод времени (кнопки применяются, если есть логика клика)
+2. Вывести дату создания заметки на странице редактирования редактирования в формате:
+    2.1 Заметка создана: 26 сентября 2021 (подключить русскую локализацию)
+    2.2 Вывод в виде бейджа (baige)
+    2.3 Создать и передать новую константу форматированного вывода. С названием LOCALIZED_DATE
+
+ */

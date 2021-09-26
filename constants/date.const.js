@@ -1,0 +1,1 @@
+const FULL_DATE = 'DD/MM/YYYY hh:mm'
