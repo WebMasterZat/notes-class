@@ -5,7 +5,7 @@ class NotesClass {
     }
 
 
-    add(note){
+    add(note) {
 
         // ВАЛИДАЦИЯ
         //if (!this.validation(note)) return
@@ -15,8 +15,8 @@ class NotesClass {
         const newNote = {
             id: uuid.v4(),
             completed: false,
-            createdAt: Date.now(),
-            updatedAt: Date.now(),
+            createdAt: moment().format('DD/MM/YYYY, HH:mm:ss'),
+            updatedAt: '-' || moment().format('DD/MM/YYYY, HH:mm:ss'),
             ...note
             // title: note.title,
             // body: note.body,
@@ -59,7 +59,9 @@ class NotesClass {
             if (item.id === id) {
                 item.title = note.title
                 item.body = note.body
+                item.updatedAt = moment().format('DD/MM/YYYY, HH:mm:ss')
             }
+            console.log(item.createdAt)
         })
         this.save(notes)
         console.log(`Заметка c id = ${id} обновлена`)
@@ -118,8 +120,8 @@ class NotesClass {
     // аргументы: -
 
     print() {
-       // this.render()
-        return this.notes
+        // this.render()
+        console.log(this.notes)
     }
 
     // ВЫВОД И ПЕРЕРИСОВКА СПИСКА ЗАМЕТОК
@@ -127,52 +129,47 @@ class NotesClass {
     render() {
         let notesList = document.querySelector('.notes-list')
         const notes = this.notes
-
         let ul = document.createElement('ul')
 
         notesList.innerText = ''
+        // 1. по клику на кнопку редактировать перейти на страницу edit
+        // 2. get (параметр search об-та location) параметром передать id заметки в формате id = номер id (сам id)
+        // 3. в самом файле edit.html в JS прописать получение get параметра id из строки браузера (он же получается из свойства search объекта location)
+        // т.е. если строка вида http://test.localhost/edit.html?id=123
+        // то надо создать об-т query в формате { id: 123 }
+        // использовать метод split или метод match ( c регулярным выражением )
+        // 4. Создать экземпляр класса заметок и по полученному из строки id получить текущую заметку из localstorage по её id (getById())
+        // 5. поле заголовок найденной заметки поставить в value input формы редактирования, поле содержание в textarea. Т.е. вставить данные
+        // заметки в ДОМ
+        // ЕСЛИ СМОЖЕШЬ
+        // 6. Отредактировать выбранную заметку и вернуться на страницу index.html, где заметка будет отображаться в отредактированном виде
+        // 7. удалить заметку
+
+
+        // 19.09.2021
+        // https://tutorial.webexp.site
+        // вывод дат создания и редактирования заметки в отформатированном виде с помощью библиотеки moment.js
+        // https://momentjs.com/docs/#/displaying/format/
 
         notes.forEach((item, index) => {
-            let inputNotesList = document.createElement('input')
-            let labelNotesList = document.createElement('label')
-            inputNotesList.setAttribute('name', 'labelNotesList')
-            labelNotesList.setAttribute('for', 'labelNotesList' + index)
 
-
-            // 1. по клику на кнопку редактировать перейти на страницу edit
-            // 2. get (параметр search об-та location) параметром передать id заметки в формате id = номер id (сам id)
-            // 3. в самом файле edit.html в JS прописать получение get параметра id из строки браузера (он же получается из свойства search объекта location)
-            // т.е. если строка вида http://test.localhost/edit.html?id=123
-            // то надо создать об-т query в формате { id: 123 }
-            // использовать метод split или метод match ( c регулярным выражением )
-            // 4. Создать экземпляр класса заметок и по полученному из строки id получить текущую заметку из localstorage по её id (getById())
-            // 5. поле заголовок найденной заметки поставить в value input формы редактирования, поле содержание в textarea. Т.е. вставить данные
-            // заметки в ДОМ
-            // ЕСЛИ СМОЖЕШЬ
-            // 6. Отредактировать выбранную заметку и вернуться на страницу index.html, где заметка будет отображаться в отредактированном виде
-
-
-            // 7. удалить заметку
-
+            // Удалить
             let buttonDelete = document.createElement('button')
             buttonDelete.innerText = 'Удалить'
             buttonDelete.classList.add('btn')
             buttonDelete.classList.add('btn-danger')
             buttonDelete.classList.add('m-1')
             buttonDelete.addEventListener('click', (e) => {
-                // как программа сопоставляет id элемента и элемент на который нажал ??
                 this.remove(item.id)
                 this.render()
-                // this.remove(this.getById(item.id)) ??? почему не работает???
-                // this.render() ???
             })
 
-
-            let button = document.createElement('button')
-            button.innerText = 'Редактировать'
-            button.classList.add('btn')
-            button.classList.add('btn-success')
-            button.addEventListener('click', () => {
+            // Редактирование
+            let buttonEdit = document.createElement('button')
+            buttonEdit.innerText = 'Редактировать'
+            buttonEdit.classList.add('btn')
+            buttonEdit.classList.add('btn-success')
+            buttonEdit.addEventListener('click', () => {
                 // const origin = location.origin
                 const {origin} = location
                 // location.href = `${origin}/edit.html`
@@ -180,19 +177,61 @@ class NotesClass {
 
             })
 
+
+            // checkbox
+            let inputNotesList = document.createElement('input')
+            let labelNotesList = document.createElement('label')
+            inputNotesList.setAttribute('name', 'labelNotesList')
+            labelNotesList.setAttribute('for', 'labelNotesList' + index)
             inputNotesList.type = 'checkbox'
             inputNotesList.id = 'labelNotesList' + index
             inputNotesList.className = 'labelNotesList'
             inputNotesList.checked = item.completed
+
+            // Card
+            let cardBody = document.createElement('div')
+            cardBody.classList.add('card-body')
+
+            let h5 = document.createElement('h5')
+            h5.classList.add('card-title')
+            h5.innerText = 'TITLE: ' + item.title
+
+            let p = document.createElement('p')
+            p.classList.add('card-text')
+            p.innerText = 'BODY: ' + item.body + ' | ' + 'COMPLETED: ' + item.completed
+
+            cardBody.appendChild(h5)
+            cardBody.appendChild(p)
+
             notesList.appendChild(ul)
             let li = document.createElement('li')
             li.classList.add('my-3')
-            ul.appendChild(li).innerText = 'TITLE: ' + item.title + ' | ' + 'BODY: ' + item.body + ' | ' + 'COMPLETED: ' + item.completed
+
+            let btnDateOfCreate = document.createElement('button')
+            btnDateOfCreate.type = 'button'
+            btnDateOfCreate.classList.add('btn')
+            btnDateOfCreate.classList.add('btn-outline-secondary')
+            btnDateOfCreate.innerText = 'Дата создания: ' + item.createdAt
+
+            let btnDateOfEdit = document.createElement('button')
+            btnDateOfEdit.type = 'button'
+            btnDateOfEdit.classList.add('btn')
+            btnDateOfEdit.classList.add('m-1')
+            btnDateOfEdit.classList.add('btn-outline-secondary')
+
+
+            btnDateOfEdit.innerText = 'Дата редактирования: ' + item.updatedAt
+
+            ul.appendChild(li)
+            li.appendChild(h5)
+            li.appendChild(p)
             li.appendChild(inputNotesList)
             li.appendChild(labelNotesList)
-            li.appendChild(button)
+            li.appendChild(buttonEdit)
             li.appendChild(buttonDelete)
-            
+            li.appendChild(btnDateOfCreate)
+            li.appendChild(btnDateOfEdit)
+
             inputNotesList.addEventListener('change', (e) => {
                 item.completed = e.target.checked
                 this.save(notes)
@@ -201,13 +240,3 @@ class NotesClass {
         })
     }
 }
-
-
-/*
-добавь к выводимой заметке чекбокс, который будет отображать статус поля completed
-
-true - чекбокс отмечен, false - нет
-
-поставь на него обработчик события, который будет переключать это поле у конкретной заметки
-
-не забывай включать перерисовку*/

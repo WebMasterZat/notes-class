@@ -1,5 +1,6 @@
 .labelNotesList {
   display: none;
+  border: 1px solid red;
 
   &:disabled + label:before {
     transform: scale(1);
@@ -42,6 +43,18 @@
       color: transparent;
       transition: .2s;
       text-align: center;
+    }
+  }
+}
+
+.notes-list {
+  border: none;
+  ul {
+    padding-left: 0;
+    li {
+      border: 1px solid #ccc;
+      padding: .8em;
+      list-style-type: none;
     }
   }
 }

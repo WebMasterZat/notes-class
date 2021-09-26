@@ -32,56 +32,58 @@
             <button class="btn btn-primary">Добавить</button>
         </div>
     </form>
-    <br>
-    <div class="my-3 notes-list">
+
+    <div class="my-3 notes-list card">
         <!-- ВВЫВОД СПИСКА ЗАМЕТОК -->
+
     </div>
-</div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
-
-<script src="form.js"></script>
-<script src="notes.js"></script>
-<script>
-    let notesClass1 = new NotesClass() // экземпляр объекта
-
-    document.forms[0].addEventListener('submit', function (e) {
-        e.preventDefault() // отменить действия по умолчанию в браузере
-        const title = document.getElementById('title').value // значения поля title
-        const body = document.getElementById('textarea').value // значение поля textarea
-        // исходный объект
-        let note = {
-            title: title,
-            body: body
-        }
-        notesClass1.add(note)
-    })
-    notesClass1.render()
 
 
-    // создай экземпляр класса вне обработчика событий
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="form.js"></script>
+    <script src="notes.js"></script>
+    <script>
+        let notesClass1 = new NotesClass() // экземпляр объекта
 
-    // и отдельно вызови метод вывода заметок
-
-    // там же в html рядом с обработчиком submit
-
-
-    /*
-        NotesClass
-            add
-            save
-            notes
-            remove
-            update
-            getById
-            getByTitle
-            validation
-            print
-    */
+        document.forms[0].addEventListener('submit', function (e) {
+            e.preventDefault() // отменить действия по умолчанию в браузере
+            const title = document.getElementById('title').value // значения поля title
+            const body = document.getElementById('textarea').value // значение поля textarea
+            // исходный объект
+            let note = {
+                title: title,
+                body: body
+            }
+            notesClass1.add(note)
+        })
+        notesClass1.render()
 
 
-</script>
+        // создай экземпляр класса вне обработчика событий
+
+        // и отдельно вызови метод вывода заметок
+
+        // там же в html рядом с обработчиком submit
+
+
+        /*
+            NotesClass
+                add
+                save
+                notes
+                remove
+                update
+                getById
+                getByTitle
+                validation
+                print
+        */
+
+
+    </script>
 </body>
 
 </html>
