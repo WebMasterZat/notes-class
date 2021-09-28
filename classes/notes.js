@@ -154,7 +154,7 @@ class NotesClass {
                 // const origin = location.origin
                 const {origin} = location
                 // location.href = `${origin}/edit.html`
-                location.href = 'http://test.localhost/edit.html' + '?id=' + item.id
+                location.href = 'BASE_URL/edit.html' + '?id=' + item.id
 
             })
 
@@ -198,14 +198,14 @@ class NotesClass {
 
 
 
-            let btnDateOfEdit = document.createElement('button')
-            btnDateOfEdit.type = 'button'
-            btnDateOfEdit.classList.add('btn')
-            btnDateOfEdit.classList.add('m-1')
-            btnDateOfEdit.classList.add('btn-outline-secondary')
+            let badgeDateOfEdit = document.createElement('span')
+            //<span class="badge bg-secondary">Secondary</span>
+            badgeDateOfEdit.classList.add('badge')
+            badgeDateOfEdit.classList.add('m-1')
+            badgeDateOfEdit.classList.add('bg-secondary')
 
 
-           btnDateOfEdit.innerText = 'Дата редактирования: ' + DateClass.formatData(item.updatedAt, FULL_DATE) // baged bootstrap
+           badgeDateOfEdit.innerText = 'Дата редактирования: ' + DateClass.formatData(item.updatedAt, FULL_DATE) // baged bootstrap
 
             ul.appendChild(li)
             li.appendChild(h5)
@@ -215,7 +215,7 @@ class NotesClass {
             li.appendChild(buttonEdit)
             li.appendChild(buttonDelete)
             li.appendChild(btnDateOfCreate)
-            li.appendChild(btnDateOfEdit)
+            li.appendChild(badgeDateOfEdit)
 
             inputNotesList.addEventListener('change', (e) => {
                 item.completed = e.target.checked
@@ -228,7 +228,7 @@ class NotesClass {
 
 
 /*
-1. Поменять н=кнопки на бейджи вывод времени (кнопки применяются, если есть логика клика)
+1. Поменять кнопки на бейджи вывод времени (кнопки применяются, если есть логика клика)
 2. Вывести дату создания заметки на странице редактирования редактирования в формате:
     2.1 Заметка создана: 26 сентября 2021 (подключить русскую локализацию)
     2.2 Вывод в виде бейджа (baige)

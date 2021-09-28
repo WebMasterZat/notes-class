@@ -8,6 +8,10 @@ git add .
 # создаётся слепок файлов
 git commit -m "first commit"
 
+(прописать комментарии в notepad++)
+git commit ENTER
+(файл сохранить и закрыть)
+
 # отправка файлов на удалённый репозиторий
 # git push -u origin main
 git push -u origin test
