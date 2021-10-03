@@ -21,37 +21,43 @@
             <!-- ВВЫВОД ОШИБОК -->
         </div>
         <div class="form-group">
-            <label for="title">Title</label>
+            <label for="titleEdit">Title</label>
             <input type="text" class="form-control" id="titleEdit" placeholder="Заголовок">
         </div>
         <div class="form-group mt-4">
-            <label for="textarea">Body</label>
+            <label for="textareaEdit">Body</label>
             <textarea class="form-control" rows="3" id="textareaEdit" placeholder="Содержание"></textarea>
         </div>
         <div class="form-group my-3">
             <button class="btn btn-primary saveEdit">Сохранить</button>
         </div>
     </form>
+    <div id="timeEdit"></div>
 </div>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ru.min.js" integrity="sha512-+yvkALwyeQtsLyR3mImw8ie79H9GcXkknm/babRovVSTe04osQxiohc1ukHkBCIKQ9y97TAf2+17MxkIimZOdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="classes/form.js"></script>
 <script src="classes/notes.js"></script>
 <script src="classes/date.js"></script>
+<script src="constants/env.const.js"></script>
+<script src="constants/date.const.js"></script>
 <script>
 
     //?id=8063bc18-308c-4f4c-aa2a-799ad762a503
 
     let notesEdit = new NotesClass()
-    // let formClassEdit = new FormClass()
     let query = location.search.match(/(?<=\?id=)\S+/)
     let id = query[0].trim()
+    const note = notesEdit.getById(id)
 
-    document.getElementById('titleEdit').value = notesEdit.getById(id).title
-    document.getElementById('textareaEdit').value = notesEdit.getById(id).body
+
+
+    document.getElementById('titleEdit').value = note.title
+    document.getElementById('textareaEdit').value = note.body
 
     document.querySelector('.saveEdit').addEventListener('click', (e) => {
         e.preventDefault()
@@ -61,23 +67,11 @@
             title,
             body
         })
-       location.href = 'BASE_URL/index.html'
+       location.href = BASE_URL + '/index.html'
     })
+    document.getElementById('timeEdit').innerText = `Дата создания: ${DateClass.formatData(note.createdAt, LOCALIZED_DATE)}`
 
 
 </script>
 </body>
 </html>
-
-<!--// 1. по клику на кнопку редактировать перейти на страницу edit-->
-<!--// 2. get (параметр search об-та location) параметром передать id заметки в формате id = номер id (сам id)-->
-<!--// 3. в самом файле edit.html в JS прописать получение get параметра id из строки браузера (он же получается из свойства search объекта location)-->
-<!--// т.е. если строка вида http://test.localhost/edit.html?id=123-->
-<!--// то надо создать об-т query в формате { id: 123 }-->
-<!--// использовать метод split или метод match ( c регулярным выражением )-->
-<!--// 4. Создать экземпляр класса заметок и по полученному из строки id получить текущую заметку из localstorage по её id (getById())-->
-<!--// 5. поле заголовок найденной заметки поставить в value input формы редактирования, поле содержание в textarea. Т.е. вставить данные-->
-<!--// заметки в ДОМ-->
-
-<!--// ЕСЛИ СМОЖЕШЬ-->
-<!--// 6. Отредактировать выбранную заметку и вернуться на страницу index.html, где заметка будет отображаться в отредактированном виде-->

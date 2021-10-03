@@ -35,6 +35,12 @@ class NotesClass {
         localStorage.setItem("notes", JSON.stringify(notes))
     }
 
+    // 4 БАЗОВЫХ ОПЕРАЦИИ РАБОТЫ С ДАННЫМИ
+    // Create - создание
+    // Read - чтение (выборка)
+    // Update - обновление
+    // Delete - удаление
+
     // получаем из localstorage объект заметки
     get notes() {
         return localStorage.getItem("notes") ? JSON.parse(localStorage.getItem("notes")) : []
@@ -154,10 +160,9 @@ class NotesClass {
                 // const origin = location.origin
                 const {origin} = location
                 // location.href = `${origin}/edit.html`
-                location.href = 'BASE_URL/edit.html' + '?id=' + item.id
+                location.href = BASE_URL + '/edit.html' + '?id=' + item.id
 
             })
-
 
             // checkbox
             let inputNotesList = document.createElement('input')
@@ -188,24 +193,14 @@ class NotesClass {
             let li = document.createElement('li')
             li.classList.add('my-3')
 
-            let btnDateOfCreate = document.createElement('button')
-            btnDateOfCreate.type = 'button'
-            btnDateOfCreate.classList.add('btn')
-            btnDateOfCreate.classList.add('btn-outline-secondary')
-
-
-            btnDateOfCreate.innerText = 'Дата создания: ' + DateClass.formatData(item.createdAt, FULL_DATE)
-
-
-
-            let badgeDateOfEdit = document.createElement('span')
-            //<span class="badge bg-secondary">Secondary</span>
-            badgeDateOfEdit.classList.add('badge')
-            badgeDateOfEdit.classList.add('m-1')
-            badgeDateOfEdit.classList.add('bg-secondary')
-
-
-           badgeDateOfEdit.innerText = 'Дата редактирования: ' + DateClass.formatData(item.updatedAt, FULL_DATE) // baged bootstrap
+            let div = document.createElement('div')
+            div.innerHTML = `
+                <hr class="my-3"/>
+                <div class="d-flex">
+                    <span class="badge m-1 bg-secondary">Дата создания: ${DateClass.formatData(item.createdAt, FULL_DATE)}</span>
+                    <span class="badge m-1 bg-secondary">Дата редактирования: ${DateClass.formatData(item.updatedAt, FULL_DATE)}</span>
+                </div>
+            `
 
             ul.appendChild(li)
             li.appendChild(h5)
@@ -214,8 +209,8 @@ class NotesClass {
             li.appendChild(labelNotesList)
             li.appendChild(buttonEdit)
             li.appendChild(buttonDelete)
-            li.appendChild(btnDateOfCreate)
-            li.appendChild(badgeDateOfEdit)
+            li.appendChild(div)
+
 
             inputNotesList.addEventListener('change', (e) => {
                 item.completed = e.target.checked
@@ -227,9 +222,11 @@ class NotesClass {
 }
 
 
+
+
 /*
 1. Поменять кнопки на бейджи вывод времени (кнопки применяются, если есть логика клика)
-2. Вывести дату создания заметки на странице редактирования редактирования в формате:
+2. Вывести дату создания заметки на странице редактирования в формате:
     2.1 Заметка создана: 26 сентября 2021 (подключить русскую локализацию)
     2.2 Вывод в виде бейджа (baige)
     2.3 Создать и передать новую константу форматированного вывода. С названием LOCALIZED_DATE

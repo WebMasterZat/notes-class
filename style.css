@@ -43,12 +43,19 @@
   border: none;
 }
 .notes-list ul {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 20px;
   padding-left: 0;
 }
 .notes-list ul li {
   border: 1px solid #ccc;
   padding: 0.8em;
   list-style-type: none;
+  margin: 1em;
+}
+.notes-list ul li p {
+  word-break: break-word;
 }
 
 /*# sourceMappingURL=style.css.map */

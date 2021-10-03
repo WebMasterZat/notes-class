@@ -1,2 +1,2 @@
 const FULL_DATE = 'DD/MM/YYYY hh:mm'
-const BASE_URL = 'http://test.localhost'
+const LOCALIZED_DATE = 'DD MMMM YYYY'

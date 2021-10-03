@@ -49,12 +49,21 @@
 
 .notes-list {
   border: none;
+
   ul {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 20px;
     padding-left: 0;
+
     li {
       border: 1px solid #ccc;
       padding: .8em;
       list-style-type: none;
+      margin: 1em;
+      p{
+        word-break: break-word;
+      }
     }
   }
 }
