@@ -50,18 +50,16 @@ class NotesClass {
 
 
     update(id, note) {
-        this.validation(note)
-        const {title, body} = note
+        // this.validation(note)
         const newNotes = this.notes.map(item => {
             if (item.id === id) {
                 return {
                     ...item,
-                    body,
-                    title,
+                    ...note,
                     updatedAt: Date.now()
                 }
             }
-            return note
+            return item
         })
         this.save(newNotes)
         console.log(`Заметка c id = ${id} обновлена`)
@@ -184,7 +182,7 @@ class NotesClass {
 
             notesList.appendChild(ul)
             let li = document.createElement('li')
-            li.classList.add('my-3')
+            li.classList.add('m-3')
 
             let div = document.createElement('div')
             div.innerHTML = `
@@ -206,8 +204,7 @@ class NotesClass {
 
 
             inputNotesList.addEventListener('change', (e) => {
-                item.completed = e.target.checked
-                this.save(notes)
+                this.update(item.id, { completed: e.target.checked })
                 this.render()
             })
         })
