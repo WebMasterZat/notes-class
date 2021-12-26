@@ -137,22 +137,20 @@ class NotesClass {
             btnGroup.classList.add('btn-group')
 
             // Удалить
-            let buttonDelete = document.createElement('button')
+            let buttonDelete = document.createElement('div')
             buttonDelete.innerHTML = '<i class="far fa-trash-alt"></i>'
             buttonDelete.classList.add('btn')
-            buttonDelete.classList.add('btn-warning')
-            buttonDelete.classList.add('btn-sm')
+            buttonDelete.classList.add('text-warning')
             buttonDelete.addEventListener('click', (e) => {
                 this.remove(item.id)
                 this.render()
             })
 
             // Редактирование
-            let buttonEdit = document.createElement('button')
+            let buttonEdit = document.createElement('div')
             buttonEdit.innerHTML = '<i class="far fa-edit"></i>'
             buttonEdit.classList.add('btn')
-            buttonEdit.classList.add('btn-info')
-            buttonEdit.classList.add('btn-sm')
+            buttonEdit.classList.add('text-info')
 
             buttonEdit.addEventListener('click', () => {
                 // const origin = location.origin
@@ -171,8 +169,8 @@ class NotesClass {
             inputNotesList.setAttribute('name', 'labelNotesList')
             labelNotesList.setAttribute('for', 'labelNotesList' + index)
             labelNotesList.innerHTML = item.completed 
-                ? `<i class="fas fa-2x fa-check-double text-success"></i> (${item.completed})` 
-                : `<i class="far fa-2x fa-square text-warning"></i> (${item.completed})`
+                ? `<i class="btn fas fa-2x fa-check-double text-info"></i>` 
+                : `<i class="btn far fa-2x fa-square text-warning"></i>`
 
             labelNotesList.classList.add('ms-2')
             inputNotesList.type = 'checkbox'
@@ -219,8 +217,8 @@ class NotesClass {
             footer.classList.add('card-footer')
             footer.classList.add('d-flex')
             footer.innerHTML = `
-                <span class="badge m-1 bg-secondary rounded-pill">Добавлено: ${DateClass.formatData(item.createdAt, FULL_DATE)}</span>
-                <span class="badge m-1 bg-secondary rounded-pill">Отредактировано: ${DateClass.formatData(item.updatedAt, FULL_DATE)}</span>
+                <span class="badge m-1 alert-secondary">Добавлено: ${DateClass.formatData(item.createdAt, FULL_DATE)}</span>
+                <span class="badge m-1 alert-secondary">Отредактировано: ${DateClass.formatData(item.updatedAt, FULL_DATE)}</span>
             `
 
 
