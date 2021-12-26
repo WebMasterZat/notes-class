@@ -127,16 +127,21 @@ class NotesClass {
     render() {
         let notesList = document.querySelector('.notes-list')
         let ul = document.createElement('ul')
+        ul.classList.add('d-flex')
+        ul.classList.add('flex-wrap')
 
         notesList.innerText = ''
         this.notes.forEach((item, index) => {
 
+            let btnGroup = document.createElement('div')
+            btnGroup.classList.add('btn-group')
+
             // Удалить
             let buttonDelete = document.createElement('button')
-            buttonDelete.innerText = 'Удалить'
+            buttonDelete.innerHTML = '<i class="far fa-trash-alt"></i>'
             buttonDelete.classList.add('btn')
-            buttonDelete.classList.add('btn-danger')
-            buttonDelete.classList.add('m-1')
+            buttonDelete.classList.add('btn-warning')
+            buttonDelete.classList.add('btn-sm')
             buttonDelete.addEventListener('click', (e) => {
                 this.remove(item.id)
                 this.render()
@@ -144,9 +149,11 @@ class NotesClass {
 
             // Редактирование
             let buttonEdit = document.createElement('button')
-            buttonEdit.innerText = 'Редактировать'
+            buttonEdit.innerHTML = '<i class="far fa-edit"></i>'
             buttonEdit.classList.add('btn')
-            buttonEdit.classList.add('btn-success')
+            buttonEdit.classList.add('btn-info')
+            buttonEdit.classList.add('btn-sm')
+
             buttonEdit.addEventListener('click', () => {
                 // const origin = location.origin
                 const { origin } = location
@@ -155,53 +162,73 @@ class NotesClass {
 
             })
 
+            btnGroup.appendChild(buttonEdit)
+            btnGroup.appendChild(buttonDelete)
+
             // checkbox
             let inputNotesList = document.createElement('input')
             let labelNotesList = document.createElement('label')
             inputNotesList.setAttribute('name', 'labelNotesList')
             labelNotesList.setAttribute('for', 'labelNotesList' + index)
+            labelNotesList.innerHTML = item.completed 
+                ? `<i class="fas fa-2x fa-check-double text-success"></i> (${item.completed})` 
+                : `<i class="far fa-2x fa-square text-warning"></i> (${item.completed})`
+
+            labelNotesList.classList.add('ms-2')
             inputNotesList.type = 'checkbox'
             inputNotesList.id = 'labelNotesList' + index
             inputNotesList.className = 'labelNotesList'
             inputNotesList.checked = item.completed
+            inputNotesList.classList.add('d-none')
+
+            let completedDiv = document.createElement('div')
+            completedDiv.classList.add('my-3')
+
+            completedDiv.appendChild(inputNotesList)
+            completedDiv.appendChild(labelNotesList)
+
+            let nav = document.createElement('div')
+            nav.classList.add('d-flex')
+            nav.classList.add('align-items-center')
+            nav.classList.add('justify-content-between')
+            nav.appendChild(completedDiv)
+            nav.appendChild(btnGroup)
+
 
             // Card
             let cardBody = document.createElement('div')
             cardBody.classList.add('card-body')
 
-            let h5 = document.createElement('h5')
-            h5.classList.add('card-title')
-            h5.innerText = 'TITLE: ' + item.title
+            let header = document.createElement('h5')
+            header.classList.add('card-header')
+            header.innerText = item.title
 
             let p = document.createElement('p')
             p.classList.add('card-text')
-            p.innerText = 'BODY: ' + item.body + ' | ' + 'COMPLETED: ' + item.completed
+            p.innerText = item.body
 
-            cardBody.appendChild(h5)
             cardBody.appendChild(p)
+            cardBody.appendChild(nav)
 
             notesList.appendChild(ul)
             let li = document.createElement('li')
             li.classList.add('m-3')
+            li.classList.add('card')
 
-            let div = document.createElement('div')
-            div.innerHTML = `
-                <hr class="my-3"/>
-                <div class="d-flex">
-                    <span class="badge m-1 bg-secondary">Дата создания: ${DateClass.formatData(item.createdAt, FULL_DATE)}</span>
-                    <span class="badge m-1 bg-secondary">Дата редактирования: ${DateClass.formatData(item.updatedAt, FULL_DATE)}</span>
-                </div>
+            let footer = document.createElement('div')
+            footer.classList.add('card-footer')
+            footer.classList.add('d-flex')
+            footer.innerHTML = `
+                <span class="badge m-1 bg-secondary rounded-pill">Добавлено: ${DateClass.formatData(item.createdAt, FULL_DATE)}</span>
+                <span class="badge m-1 bg-secondary rounded-pill">Отредактировано: ${DateClass.formatData(item.updatedAt, FULL_DATE)}</span>
             `
 
-            ul.appendChild(li)
-            li.appendChild(h5)
-            li.appendChild(p)
-            li.appendChild(inputNotesList)
-            li.appendChild(labelNotesList)
-            li.appendChild(buttonEdit)
-            li.appendChild(buttonDelete)
-            li.appendChild(div)
 
+
+            ul.appendChild(li)
+            li.appendChild(header)
+            li.appendChild(cardBody)
+            li.appendChild(footer)
 
             inputNotesList.addEventListener('change', (e) => {
                 this.update(item.id, { completed: e.target.checked })
