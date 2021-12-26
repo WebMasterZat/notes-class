@@ -4,7 +4,6 @@ class NotesClass {
         console.log('this.form: ', this.form)
     }
 
-
     add(note) {
 
         // ВАЛИДАЦИЯ
@@ -21,9 +20,7 @@ class NotesClass {
             // title: note.title,
             // body: note.body,
         }
-        const notes = this.notes // массив объектов заметок
-        notes.push(newNote)
-        this.save(notes)
+        this.save([...this.notes, newNote])
         this.render()
         console.log('Заметка добавлена')
         this.form.reset()
@@ -48,28 +45,23 @@ class NotesClass {
 
     // удалить заметку по id
     remove(id) {
-        const notes = this.notes
-        const index = notes.findIndex(note => note.id === id)
-        if (index !== -1) {
-            notes.splice(index, 1)
-            this.save(notes)
-        }
+        this.save(this.notes.filter((note) => note.id !== id))
     }
 
 
     update(id, note) {
-
-        this.validation(note)
-
-        const notes = this.notes
-        notes.forEach(item => {
+        // this.validation(note)
+        const newNotes = this.notes.map(item => {
             if (item.id === id) {
-                item.title = note.title
-                item.body = note.body
-                item.updatedAt = Date.now()
+                return {
+                    ...item,
+                    ...note,
+                    updatedAt: Date.now()
+                }
             }
+            return item
         })
-        this.save(notes)
+        this.save(newNotes)
         console.log(`Заметка c id = ${id} обновлена`)
         this.form.reset()
 
@@ -134,11 +126,10 @@ class NotesClass {
     // ПРИ ДОБАВЛЕНИИ ИЗ ФОРМЫ ЗАМЕТКА ДОЛЖНА ВЫВОДИТЬСЯ В КОНЦЕ СПИСКА ЗАМЕТОК НА ЭКРАНЕ
     render() {
         let notesList = document.querySelector('.notes-list')
-        const notes = this.notes
         let ul = document.createElement('ul')
 
         notesList.innerText = ''
-        notes.forEach((item, index) => {
+        this.notes.forEach((item, index) => {
 
             // Удалить
             let buttonDelete = document.createElement('button')
@@ -158,9 +149,9 @@ class NotesClass {
             buttonEdit.classList.add('btn-success')
             buttonEdit.addEventListener('click', () => {
                 // const origin = location.origin
-                const {origin} = location
-                // location.href = `${origin}/edit.html`
-                location.href = BASE_URL + '/edit.html' + '?id=' + item.id
+                const { origin } = location
+                location.href = `${origin}/edit.html?id=${item.id}`
+                // location.href = BASE_URL + '/edit.html' + '?id=' + item.id
 
             })
 
@@ -191,7 +182,7 @@ class NotesClass {
 
             notesList.appendChild(ul)
             let li = document.createElement('li')
-            li.classList.add('my-3')
+            li.classList.add('m-3')
 
             let div = document.createElement('div')
             div.innerHTML = `
@@ -213,8 +204,7 @@ class NotesClass {
 
 
             inputNotesList.addEventListener('change', (e) => {
-                item.completed = e.target.checked
-                this.save(notes)
+                this.update(item.id, { completed: e.target.checked })
                 this.render()
             })
         })

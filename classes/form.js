@@ -5,9 +5,7 @@ class FormClass {
     }
     fields = {
         title: 'Заголовок',
-        body: 'Содержание',
-        test: 'ok',
-        test2: 'ok2'
+        body: 'Содержание'
     }
     // [title, body]
     // ['Заголовок', 'Содержание']
