@@ -13,6 +13,7 @@ git commit ENTER
 (файл сохранить и закрыть)
 
 # отправка файлов на удалённый репозиторий
+<<<<<<< HEAD
 # git push -u origin main
 git push -u origin test
 
@@ -25,3 +26,19 @@ git remote -v
 
 проверка истории коммитов
 git log --oneline
+=======
+git push -u origin main
+
+
+------------------
+дополнительные команды
+
+проверка к какому удалённому репозиторию привазана папка
+git remote -v
+
+
+проверить историю коммитов
+git log --oneline
+
+
+>>>>>>> fbbb6b52bd5db8ac0c89d31c61d285d2406b486d
