@@ -170,7 +170,7 @@ class NotesClass {
             labelNotesList.setAttribute('for', 'labelNotesList' + index)
             labelNotesList.innerHTML = item.completed 
                 ? `<i class="btn fas fa-2x fa-check-double text-info"></i>` 
-                : `<i class="btn far fa-2x fa-square text-warning"></i>`
+                : `<i class="btn far fa-2x fa-square text-secondary"></i>`
 
             labelNotesList.classList.add('ms-2')
             inputNotesList.type = 'checkbox'
@@ -211,6 +211,8 @@ class NotesClass {
             notesList.appendChild(ul)
             let li = document.createElement('li')
             li.classList.add('m-3')
+            li.classList.add('shadow')
+            li.classList.add('border-0')
             li.classList.add('card')
 
             let footer = document.createElement('div')
