@@ -16,7 +16,7 @@
 
 <div class="container py-5">
     <form>
-        <h4>Редактировать заметку</h4>
+        <h4>Редактировать заметку ТЕСТ ТЕСТ ТЕСТ</h4>
         <div class="error">
             <!-- ВВЫВОД ОШИБОК -->
         </div>
@@ -67,7 +67,9 @@
             title,
             body
         })
-       location.href = BASE_URL + '/index.html'
+    //    location.href = BASE_URL + '/index.html'
+        const { origin } = location
+        location.href = `${origin}/index.html`
     })
     document.getElementById('timeEdit').innerText = `Дата создания: ${DateClass.formatData(note.createdAt, LOCALIZED_DATE)}`
 

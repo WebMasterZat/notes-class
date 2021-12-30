@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="#">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -33,56 +34,58 @@
         </div>
     </form>
 
-    <div class="my-3 notes-list card">
+    <div class="my-3 notes-list">
         <!-- ВВЫВОД СПИСКА ЗАМЕТОК -->
-
     </div>
+</div>
 
 
-    <!-- Плагины и библиотеки -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ru.min.js" integrity="sha512-+yvkALwyeQtsLyR3mImw8ie79H9GcXkknm/babRovVSTe04osQxiohc1ukHkBCIKQ9y97TAf2+17MxkIimZOdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Плагины и библиотеки -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ru.min.js"
+        integrity="sha512-+yvkALwyeQtsLyR3mImw8ie79H9GcXkknm/babRovVSTe04osQxiohc1ukHkBCIKQ9y97TAf2+17MxkIimZOdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!--Константы-->
-    <script src="constants/date.const.js"></script>
+<!--Константы-->
+<script src="constants/date.const.js"></script>
 
-    <!--Модули (классы)-->
-    <script src="classes/form.js"></script>
-    <script src="classes/notes.js"></script>
-    <script src="classes/date.js"></script>
-    <script src="constants/env.const.js"></script>
-    <script>
-        let notesClass1 = new NotesClass() // экземпляр объекта
+<!--Модули (классы)-->
+<script src="classes/form.js"></script>
+<script src="classes/notes.js"></script>
+<script src="classes/date.js"></script>
+<script src="constants/env.const.js"></script>
+<script>
+    let notesClass1 = new NotesClass() // экземпляр объекта
 
-        document.forms[0].addEventListener('submit', function (e) {
-            e.preventDefault() // отменить действия по умолчанию в браузере
-            const title = document.getElementById('title').value // значения поля title
-            const body = document.getElementById('textarea').value // значение поля textarea
-            // исходный объект
-            let note = {
-                title: title,
-                body: body
-            }
-            notesClass1.add(note)
-        })
-        notesClass1.render()
+    document.forms[0].addEventListener('submit', function (e) {
+        e.preventDefault() // отменить действия по умолчанию в браузере
+        const title = document.getElementById('title').value // значения поля title
+        const body = document.getElementById('textarea').value // значение поля textarea
+        // исходный объект
+        let note = {
+            title: title,
+            body: body
+        }
+        notesClass1.add(note)
+    })
+    notesClass1.render()
 
+    /*
+        NotesClass
+            add
+            save
+            notes
+            remove
+            update
+            getById
+            getByTitle
+            validation
+            print
+    */
 
-        /*
-            NotesClass
-                add
-                save
-                notes
-                remove
-                update
-                getById
-                getByTitle
-                validation
-                print
-        */
+</script>
 
-    </script>
 </body>
 
 </html>
